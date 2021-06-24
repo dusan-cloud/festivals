@@ -1,17 +1,66 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { Container, Nav, Navbar, Button } from "react-bootstrap";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  Link,
+} from "react-router-dom";
+import ReactDOM from "react-dom";
+import Home from "./components/Home";
+import NotFound from "./components/NotFound";
+import { logout } from "./service/auth";
+import Login from "./components/authorization/Login";
+import Klase from "./components/klase/Klase";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class App extends React.Component {
+  render() {
+    const jwt = window.localStorage["jwt"];
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    if (jwt) {
+      return (
+        <div>
+          <Router>
+            <Navbar expand bg="dark" variant="dark">
+              <Navbar.Brand as={Link} to="/">
+                JWD
+              </Navbar.Brand>
+              <Nav className="mr-auto">
+                <Nav.Link as={Link} to="/klase">
+                  Klase
+                </Nav.Link>
+              </Nav>
+              <Button onClick={() => logout()}>Logout</Button>
+            </Navbar>
+            <Container style={{ paddingTop: "10px" }}>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route
+                  exact
+                  path="/login"
+                  render={() => <Redirect to="/" />}
+                />
+                <Route exact path="/klase" component={Klase} />
+                <Route component={NotFound} />
+              </Switch>
+            </Container>
+          </Router>
+        </div>
+      );
+    } else {
+      return (
+        <Container>
+          <Router>
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route render={() => <Redirect to="/login" />} />
+            </Switch>
+          </Router>
+        </Container>
+      );
+    }
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector("#root"));
