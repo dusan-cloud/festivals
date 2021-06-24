@@ -1,46 +1,38 @@
+import React,  { useState } from 'react';
 import {Row, Col, Form, Button} from 'react-bootstrap';
-import React from 'react';
 import {login} from '../../service/auth';
 
-class Login extends React.Component{
-    constructor(props){
-        super(props);
+function Login () {
 
-        this.state={
-            username : "",
-            password : ""
-        }
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    function handleName(e) {
+      setUsername(e.target.value);
     }
-
-    onInputChange(event){
-        const name = event.target.name;
-        const value = event.target.value
-
-        let change = {}
-        change[name] = value;
-
-        this.setState(change)
+    function handlePassword(e) {
+        setPassword(e.target.value);
     }
-    render(){
+    
         return(
             <Row className="justify-content-center">
                 <Col md={6}>
                 <Form>
                     <Form.Group>
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" name="username" onChange={(e)=>this.onInputChange(e)}></Form.Control>
+                        <Form.Control type="text" name="username" value={username} onChange={handleName}></Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" onChange={(e)=>this.onInputChange(e)}></Form.Control>
+                        <Form.Control type="password" name="password" value={password} onChange={handlePassword}></Form.Control>
                     </Form.Group>
                 </Form>
-                <Button variant="success" onClick={()=>login(this.state.username, this.state.password)}>Log in</Button>
+                <Button variant="success" onClick={()=>login(username, password)}>Log in</Button>
                 </Col>
             </Row>
         )
         
     }
-}
+
 
 export default Login
