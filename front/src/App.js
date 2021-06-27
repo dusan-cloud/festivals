@@ -10,7 +10,7 @@ import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { logout } from "./service/auth";
 import Login from "./components/authorization/Login";
-import Task from "./components/tasks/Task";
+import Festivali from "./components/tasks/Festivali";
 
 function App () {
 
@@ -25,8 +25,8 @@ function App () {
                 JWD
               </Navbar.Brand>
               <Nav className="mr-auto">
-                <Nav.Link as={Link} to="/tasks">
-                  Task
+                <Nav.Link as={Link} to="/festivali">
+                Festivali
                 </Nav.Link>
               </Nav>
               <Button onClick={() => logout()}>Logout</Button>
@@ -39,7 +39,7 @@ function App () {
                   path="/login"
                   render={() => <Redirect to="/" />}
                 />
-                <Route exact path="/tasks" component={Task} />
+                <Route exact path="/festivali" component={Festivali} />
                 <Route component={NotFound} />
               </Switch>
             </Container>
