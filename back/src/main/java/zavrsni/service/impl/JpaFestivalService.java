@@ -55,10 +55,10 @@ public class JpaFestivalService implements FestivalService{
 			naziv = "";
 		}
 		if(mestoId == null) {
-			return festivalRepository.findByNazivIgnoreCaseContains(naziv, PageRequest.of(pageNo, 3));
+			return festivalRepository.findByNazivIgnoreCaseContains(naziv, PageRequest.of(pageNo, 10));
 		}
 		
-		return festivalRepository.findByNazivIgnoreCaseContainsAndMestoId(naziv, mestoId, PageRequest.of(pageNo, 3));
+		return festivalRepository.findByNazivIgnoreCaseContainsAndMestoId(naziv, mestoId, PageRequest.of(pageNo, 10));
 	}
 
 }
