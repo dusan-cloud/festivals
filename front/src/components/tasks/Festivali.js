@@ -19,24 +19,7 @@ function Festivali() {
         console.log(err);
       });
   }
-  
 
-  function handlerFestivali() {
-    return festivals.map((festival) => {
-      return (
-        <tr key={festival.id} value={festival.id}>
-          <td>{festival.naziv}</td>
-          <td>
-            {festival.mestoDTO.grad}, ({festival.mestoDTO.drzava})
-          </td>
-          <td>{festival.datumPocetka}</td>
-          <td>{festival.datumZavrsetka}</td>
-          <td>{festival.cenaKarte}</td>
-          <td>{festival.brojDostupnihKarata}</td>
-        </tr>
-      );
-    });
-  }
 
   return (
     <div>
@@ -58,7 +41,20 @@ function Festivali() {
             <th>Broj preostalih karata</th>
           </tr>
         </thead>
-        <tbody>{handlerFestivali}</tbody>
+        <tbody>
+          {festivals.map((festival) => (
+            <tr key={festival.id} value={festival.id}>
+              <td>{festival.naziv}</td>
+              <td>
+                {festival.mestoDTO.grad}, ({festival.mestoDTO.drzava})
+              </td>
+              <td>{festival.datumPocetka}</td>
+              <td>{festival.datumZavrsetka}</td>
+              <td>{festival.cenaKarte}</td>
+              <td>{festival.brojDostupnihKarata}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
     </div>
   );
