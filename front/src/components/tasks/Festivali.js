@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
 
@@ -24,6 +24,18 @@ function Festivali() {
       });
   }
 
+//   function deleteHandler(id) {
+//       AppAxios.delete("/filmovi/" + id)
+//         .then(res => {
+//             console.log(res)
+//             alert('Uspesno ste obrisali festival.')
+//             window.location.reload()
+//         })
+//         .catch(err => {
+//             console.log(err)
+//             alert('Something wrong with delete.')
+//         })
+//   }
 
   return (
     <div>
@@ -43,6 +55,7 @@ function Festivali() {
             <th>Datum zavrsetka festivala</th>
             <th>Cena karte (RSD)</th>
             <th>Broj preostalih karata</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -56,6 +69,9 @@ function Festivali() {
               <td>{festival.datumZavrsetka}</td>
               <td>{festival.cenaKarte}</td>
               <td>{festival.brojDostupnihKarata}</td>
+              <td>
+                  <Button variant="danger">Obrisi</Button>
+              </td>
             </tr>
           ))}
         </tbody>
