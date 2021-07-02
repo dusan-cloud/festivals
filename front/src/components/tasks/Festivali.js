@@ -2,18 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
-
 function Festivali() {
   const [festivals, setFestivals] = useState([]);
-
 
   useEffect(() => {
     getFestivals();
   }, []);
- 
 
   function getFestivals() {
-    
     AppAxios.get("/festivali")
       .then((res) => {
         console.log(res);
@@ -24,21 +20,29 @@ function Festivali() {
       });
   }
 
-//   function deleteHandler(id) {
-//       AppAxios.delete("/filmovi/" + id)
-//         .then(res => {
-//             console.log(res)
-//             alert('Uspesno ste obrisali festival.')
-//             window.location.reload()
-//         })
-//         .catch(err => {
-//             console.log(err)
-//             alert('Something wrong with delete.')
-//         })
-//   }
+  // const deleteHandler = (id) => {
+
+  //     AppAxios.delete("/filmovi/" + id)
+  //       .then(res => {
+  //           console.log(res)
+  //           alert('Uspesno ste obrisali festival.')
+  //           window.location.reload()
+  //       })
+  //       .catch(err => {
+  //           console.log(err)
+  //           alert('Something wrong with delete.')
+  //       })
+  // }
+  // const goToCreate = (props) => {
+  // this.props.history.push('/festivali/create')
+  // }
 
   return (
     <div>
+      <Button variant="success" >
+        Kreiraj festival
+      </Button>
+
       <Table
         style={{ marginTop: 5 }}
         striped
@@ -70,7 +74,7 @@ function Festivali() {
               <td>{festival.cenaKarte}</td>
               <td>{festival.brojDostupnihKarata}</td>
               <td>
-                  <Button variant="danger">Obrisi</Button>
+                <Button variant="danger">Obrisi</Button>
               </td>
             </tr>
           ))}

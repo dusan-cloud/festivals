@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Built-By: Dusan
 Build-Jdk: 11.0.11
-Implementation-Title: Zavrsni
+Implementation-Title: Festivali
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: back
 Implementation-URL: http://www.example.com
