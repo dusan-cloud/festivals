@@ -41,7 +41,7 @@ public class FestivalController {
 	private FestivalToFestivalDto toFestivalDto;
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	 @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<FestivalDTO> create(@Valid @RequestBody FestivalDTO festivalDTO){
 		 Festival festival = toFestival.convert(festivalDTO);
@@ -57,7 +57,7 @@ public class FestivalController {
 	    }
 	
 	
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	 @PutMapping(value= "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<FestivalDTO> update(@PathVariable Long id, @Valid @RequestBody FestivalDTO festivalDTO){
 
@@ -108,7 +108,7 @@ public class FestivalController {
 				
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
 		Festival obrisanFestival = festivalService.delete(id);

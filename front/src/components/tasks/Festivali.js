@@ -20,22 +20,19 @@ function Festivali() {
       });
   }
 
-  // const deleteHandler = (id) => {
-
-  //     AppAxios.delete("/filmovi/" + id)
-  //       .then(res => {
-  //           console.log(res)
-  //           alert('Uspesno ste obrisali festival.')
-  //           window.location.reload()
-  //       })
-  //       .catch(err => {
-  //           console.log(err)
-  //           alert('Something wrong with delete.')
-  //       })
-  // }
-  // const goToCreate = (props) => {
-  // this.props.history.push('/festivali/create')
-  // }
+  function remove(id) {
+    console.log(id)
+    AppAxios.delete('/festivali/' + id)
+      .then(res => {
+        console.log(res)
+        alert('Uspesno ste obrisali festival.')
+        window.location.reload()
+      })
+      .catch(err => {
+        console.log(err)
+        alert('Something wrong with delete..')
+      })
+  }
 
   return (
     <div>
@@ -74,7 +71,7 @@ function Festivali() {
               <td>{festival.cenaKarte}</td>
               <td>{festival.brojDostupnihKarata}</td>
               <td>
-                <Button variant="danger">Obrisi</Button>
+                <Button variant="danger" onClick={() => remove(festival.id)}>Obrisi</Button>
               </td>
             </tr>
           ))}
