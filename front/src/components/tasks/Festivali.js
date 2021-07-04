@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
+import { propTypes } from "react-bootstrap/esm/Image";
 import AppAxios from "../../apis/AppAxios";
 
-function Festivali() {
+function Festivali(props) {
   const [festivals, setFestivals] = useState([]);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ function Festivali() {
 
   function remove(id) {
     console.log(id)
+
     AppAxios.delete('/festivali/' + id)
       .then(res => {
         console.log(res)
@@ -34,9 +36,13 @@ function Festivali() {
       })
   }
 
+  function goToCreate() {
+    props.history.push('/festivali/create')
+  }
+
   return (
     <div>
-      <Button variant="success" >
+      <Button variant="success" onClick={() => goToCreate()}>
         Kreiraj festival
       </Button>
 

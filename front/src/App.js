@@ -11,6 +11,7 @@ import NotFound from "./components/NotFound";
 import { logout } from "./service/auth";
 import Login from "./components/authorization/Login";
 import Festivali from "./components/tasks/Festivali";
+import Create from "./components/tasks/Create";
 
 function App () {
 
@@ -39,7 +40,8 @@ function App () {
                   path="/login"
                   render={() => <Redirect to="/" />}
                 />
-                <Route exact path="/festivali" component={Festivali} />
+                <Route exact path="/festivali" component={Festivali}/>
+                <Route exact path="/festivali/create" component={Create}/>
                 <Route component={NotFound} />
               </Switch>
             </Container>
