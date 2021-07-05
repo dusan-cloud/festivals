@@ -15,7 +15,7 @@ public class FestivalDTO {
 
 	private String datumZavrsetka;
 
-	@Positive
+	
 	private double cenaKarte;
 
 	private int brojDostupnihKarata;

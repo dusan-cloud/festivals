@@ -9,33 +9,70 @@ function Create(props) {
     datumZavrsetka: "",
     cenaKarte: 0,
     brojDostupnihKarata: 0,
-    mestoDTO: null
+    mestoDTO: null,
   });
 
   const [mesta, setMesta] = useState([]);
 
   useEffect(() => {
     getMesta();
-  }, [])
+  }, []);
 
   const getMesta = () => {
-      AppAxios.get('/mesta')
+    AppAxios.get("/mesta")
+      .then((res) => {
+        console.log(res);
+        setMesta(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Ne valja nesto getMesta...");
+      });
+  };
+
+  const valueInputChanged = (e) => {
+
+    const value = e.target.value;
+    const name = e.target.name;
+
+    console.log(value)
+    console.log(name);
+    const fest = {...festival};
+    fest[name] = value;
+
+    setFestival(fest);
+  };
+
+  const selectionChanged = (e) => {
+      const value = e.target.value;
+      let mestoDTO = mesta.find(mesta => mesta.id == value);
+
+      console.log(value);
+      console.log(mestoDTO);
+
+      setFestival({mestoDTO: mestoDTO});
+  };
+
+  const create = () => {
+     let festivalDTO = {
+        naziv: festival.naziv,
+        datumPocetka: festival.datumPocetka,
+        datumZavrsetka: festival.datumZavrsetka,
+        cenaKarte: festival.cenaKarte,
+        brojDostupnihKarata: festival.brojDostupnihKarata,
+        mestoDTO: festival.mestoDTO
+     }
+     AppAxios.post('/festivali', festivalDTO)
         .then(res => {
             console.log(res)
-            setMesta(res.data)
+            alert('Uspesno ste dodali festival.')
+            props.history.push('/festivali')
         })
         .catch(err => {
             console.log(err)
-            alert('Ne valja nesto getMesta...')
+            alert('Podaci nisu validno uneseni. Probajte ponovo.')
         })
-  }
 
- function selectionChanged(e) {
-
-  }
-
-  function create() {
-      
   }
 
   return (
@@ -47,10 +84,9 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Naziv festivala</Form.Label>
               <Form.Control
-                value={festival.naziv}
                 name="naziv"
                 placeholder="Naziv festivala"
-                onChange={(e) => this.valueInputChanged(e)}
+                onChange={(e) => valueInputChanged(e)}
               />
               <br />
             </Form.Group>
@@ -58,10 +94,9 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Datum pocetka festivala</Form.Label>
               <Form.Control
-                value={festival.datumPocetka}
                 name="datumPocetka"
                 placeholder="yyyy-mm-dd"
-                onChange={(e) => this.valueInputChanged(e)}
+                onChange={(e) => valueInputChanged(e)}
               />
               <br />
             </Form.Group>
@@ -69,10 +104,9 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Datum zavrsetka festivala</Form.Label>
               <Form.Control
-                value={festival.datumZavrsetka}
                 name="datumZavrsetka"
                 placeholder="yyyy-mm-dd"
-                onChange={(e) => this.valueInputChanged(e)}
+                onChange={(e) => valueInputChanged(e)}
               />
               <br />
             </Form.Group>
@@ -80,12 +114,11 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Cena karte</Form.Label>
               <Form.Control
-                value={festival.cenaKarte}
                 type="number"
                 min="0"
                 name="cenaKarte"
                 placeholder="Cena karte"
-                onChange={(e) => this.valueInputChanged(e)}
+                onChange={(e) => valueInputChanged(e)}
               />
               <br />
             </Form.Group>
@@ -93,12 +126,11 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Broj dostupnih karata</Form.Label>
               <Form.Control
-                value={festival.brojDostupnihKarata}
                 type="number"
                 min="0"
                 name="brojDostupnihKarata"
                 placeholder="Broj dostupnih karata"
-                onChange={(e) => this.valueInputChanged(e)}
+                onChange={(e) => valueInputChanged(e)}
               />
               <br />
             </Form.Group>
@@ -109,7 +141,7 @@ function Create(props) {
               <Form.Control
                 as="select"
                 name="mestoDTO"
-               onChange={(event) => selectionChanged(event)}
+                onChange={(e) => selectionChanged(e)}
               >
                 <option></option>
                 {mesta.map((mesto) => {
@@ -123,7 +155,7 @@ function Create(props) {
               <br />
             </Form.Group>
 
-            <Button onClick={() => create()}> Kreiraj</Button>
+            <Button onClick={create}> Kreiraj</Button>
           </Form>
         </Col>
       </Row>
