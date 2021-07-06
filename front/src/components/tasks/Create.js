@@ -53,18 +53,13 @@ function Create(props) {
       setFestival({mestoDTO: mestoDTO});
   };
 
-  const create = () => {
-     let festivalDTO = {
-        naziv: festival.naziv,
-        datumPocetka: festival.datumPocetka,
-        datumZavrsetka: festival.datumZavrsetka,
-        cenaKarte: festival.cenaKarte,
-        brojDostupnihKarata: festival.brojDostupnihKarata,
-        mestoDTO: festival.mestoDTO
-     }
-     AppAxios.post('/festivali', festivalDTO)
+  const create = (e) => {
+      e.preventDefault();
+    //nastavi
+    
+     AppAxios.post('/festivali', festival)
         .then(res => {
-            console.log(res)
+            console.log(res.data)
             alert('Uspesno ste dodali festival.')
             props.history.push('/festivali')
         })
@@ -155,7 +150,7 @@ function Create(props) {
               <br />
             </Form.Group>
 
-            <Button onClick={create}> Kreiraj</Button>
+            <Button onClick={(e) => create(e)}> Kreiraj</Button>
           </Form>
         </Col>
       </Row>

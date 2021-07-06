@@ -7,12 +7,7 @@ function Login () {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    function handleName(e) {
-      setUsername(e.target.value);
-    }
-    function handlePassword(e) {
-        setPassword(e.target.value);
-    }
+  
     
         return(
             <Row className="justify-content-center">
@@ -20,11 +15,11 @@ function Login () {
                 <Form>
                     <Form.Group>
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" name="username" value={username} onChange={handleName}></Form.Control>
+                        <Form.Control type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)}></Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" value={password} onChange={handlePassword}></Form.Control>
+                        <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
                     </Form.Group>
                 </Form>
                 <Button variant="success" onClick={()=>login(username, password)}>Log in</Button>
