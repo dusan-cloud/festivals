@@ -1,18 +1,14 @@
 package zavrsni.web.dto;
 
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
-
 public class FestivalDTO {
 
 	
 	private Long id;
 	
-	@Size(max=50)
 	private String naziv;
 
 	private String datumPocetka;
-
+	
 	private String datumZavrsetka;
 
 	

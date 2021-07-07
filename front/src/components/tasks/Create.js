@@ -30,45 +30,41 @@ function Create(props) {
       });
   };
 
-  const valueInputChanged = (e) => {
-
-    const value = e.target.value;
-    const name = e.target.name;
-
-    console.log(value)
-    console.log(name);
-    const fest = {...festival};
-    fest[name] = value;
-
-    setFestival(fest);
-  };
+  
 
   const selectionChanged = (e) => {
-      const value = e.target.value;
-      let mestoDTO = mesta.find(mesta => mesta.id == value);
+    const value = e.target.value;
+    let mestoDTO = mesta.find((mesta) => mesta.id == value);
 
-      console.log(value);
-      console.log(mestoDTO);
+    console.log(value);
+    console.log(mestoDTO);
 
-      setFestival({mestoDTO: mestoDTO});
+    setFestival({ mestoDTO: mestoDTO });
   };
 
-  const create = (e) => {
-      e.preventDefault();
-    //nastavi
-    
-     AppAxios.post('/festivali', festival)
-        .then(res => {
-            console.log(res.data)
-            alert('Uspesno ste dodali festival.')
-            props.history.push('/festivali')
-        })
-        .catch(err => {
-            console.log(err)
-            alert('Podaci nisu validno uneseni. Probajte ponovo.')
-        })
+  const create = () => {
 
-  }
+    let festivalDTO = {
+      naziv:festival.naziv,
+      datumPocetka: festival.datumPocetka,
+      datumZavrsetka: festival.datumZavrsetka,
+      cenaKarte: festival.cenaKarte,
+      brojDostupnihKarata: festival.brojDostupnihKarata,
+      mestoDTO: festival.mestoDTO,
+    };
+    console.log(festivalDTO);
+
+    AppAxios.post("/festivali", festivalDTO)
+      .then((res) => {
+        console.log(res.data);
+        alert("Uspesno ste dodali festival.");
+        props.history.push("/festivali");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Podaci nisu validno uneseni. Probajte ponovo.");
+      });
+  };
 
   return (
     <div>
@@ -79,9 +75,10 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Naziv festivala</Form.Label>
               <Form.Control
+                id="naziv"
                 name="naziv"
                 placeholder="Naziv festivala"
-                onChange={(e) => valueInputChanged(e)}
+                onChange={(e) => setFestival({...festival, naziv: e.target.value})}
               />
               <br />
             </Form.Group>
@@ -89,9 +86,10 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Datum pocetka festivala</Form.Label>
               <Form.Control
+                id="datumPocetka"
                 name="datumPocetka"
                 placeholder="yyyy-mm-dd"
-                onChange={(e) => valueInputChanged(e)}
+                onChange={(e) => setFestival({...festival, datumPocetka: e.target.value})}
               />
               <br />
             </Form.Group>
@@ -99,9 +97,10 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Datum zavrsetka festivala</Form.Label>
               <Form.Control
+                id="datumZavrsetka"
                 name="datumZavrsetka"
                 placeholder="yyyy-mm-dd"
-                onChange={(e) => valueInputChanged(e)}
+                onChange={(e) => setFestival({...festival, datumZavrsetka: e.target.value})}
               />
               <br />
             </Form.Group>
@@ -109,11 +108,12 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Cena karte</Form.Label>
               <Form.Control
+                id="cenaKarte"
                 type="number"
                 min="0"
                 name="cenaKarte"
                 placeholder="Cena karte"
-                onChange={(e) => valueInputChanged(e)}
+                onChange={(e) => setFestival({...festival, cenaKarte: e.target.value})}
               />
               <br />
             </Form.Group>
@@ -121,11 +121,12 @@ function Create(props) {
             <Form.Group>
               <Form.Label>Broj dostupnih karata</Form.Label>
               <Form.Control
+                id="brojDostupnihKarata"
                 type="number"
                 min="0"
                 name="brojDostupnihKarata"
                 placeholder="Broj dostupnih karata"
-                onChange={(e) => valueInputChanged(e)}
+                onChange={(e) => setFestival({...festival, brojDostupnihKarata: e.target.value})}
               />
               <br />
             </Form.Group>
@@ -134,6 +135,7 @@ function Create(props) {
               <Form.Label>Mesto odrzavanja</Form.Label>
 
               <Form.Control
+                id="mestoDTO"
                 as="select"
                 name="mestoDTO"
                 onChange={(e) => selectionChanged(e)}
@@ -150,7 +152,7 @@ function Create(props) {
               <br />
             </Form.Group>
 
-            <Button onClick={(e) => create(e)}> Kreiraj</Button>
+            <Button onClick={() => create()}> Kreiraj</Button>
           </Form>
         </Col>
       </Row>
