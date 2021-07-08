@@ -3,14 +3,20 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
 function Create(props) {
-  const [festival, setFestival] = useState({
-    naziv: "",
-    datumPocetka: "",
-    datumZavrsetka: "",
-    cenaKarte: 0,
-    brojDostupnihKarata: 0,
-    mestoDTO: null,
-  });
+//   const [festival, setFestival] = useState({
+//     naziv: "",
+//     datumPocetka: "",
+//     datumZavrsetka: "",
+//     cenaKarte: 0,
+//     brojDostupnihKarata: 0,
+//     mestoDTO: null,
+//   });
+const[naziv, setNaziv] = useState('');
+const[datumPocetka, setDatumPocetka] = useState('');
+const[datumZavrsetka, setDatumZavrsetka] = useState('');
+const[cenaKarte, setCenaKarte] = useState(0);
+const[brojDostupnihKarata, setBrojDostupnihKarata] = useState(0);
+const[mestoDTO, setMestoDTO] = useState({});
 
   const [mesta, setMesta] = useState([]);
 
@@ -39,19 +45,21 @@ function Create(props) {
     console.log(value);
     console.log(mestoDTO);
 
-    setFestival({ mestoDTO: mestoDTO });
+    setMestoDTO(mestoDTO);
   };
 
   const create = () => {
 
-    let festivalDTO = {
-      naziv:festival.naziv,
-      datumPocetka: festival.datumPocetka,
-      datumZavrsetka: festival.datumZavrsetka,
-      cenaKarte: festival.cenaKarte,
-      brojDostupnihKarata: festival.brojDostupnihKarata,
-      mestoDTO: festival.mestoDTO,
+    const festivalDTO = {
+      naziv:naziv,
+      datumPocetka: datumPocetka,
+      datumZavrsetka: datumZavrsetka,
+      cenaKarte: cenaKarte,
+      brojDostupnihKarata: brojDostupnihKarata,
+      mestoDTO: mestoDTO,
     };
+
+
     console.log(festivalDTO);
 
     AppAxios.post("/festivali", festivalDTO)
@@ -78,7 +86,7 @@ function Create(props) {
                 id="naziv"
                 name="naziv"
                 placeholder="Naziv festivala"
-                onChange={(e) => setFestival({...festival, naziv: e.target.value})}
+                onChange={(e) => setNaziv(e.target.value)}
               />
               <br />
             </Form.Group>
@@ -89,7 +97,7 @@ function Create(props) {
                 id="datumPocetka"
                 name="datumPocetka"
                 placeholder="yyyy-mm-dd"
-                onChange={(e) => setFestival({...festival, datumPocetka: e.target.value})}
+                onChange={(e) => setDatumPocetka(e.target.value)}
               />
               <br />
             </Form.Group>
@@ -100,7 +108,7 @@ function Create(props) {
                 id="datumZavrsetka"
                 name="datumZavrsetka"
                 placeholder="yyyy-mm-dd"
-                onChange={(e) => setFestival({...festival, datumZavrsetka: e.target.value})}
+                onChange={(e) => setDatumZavrsetka(e.target.value)}
               />
               <br />
             </Form.Group>
@@ -113,7 +121,7 @@ function Create(props) {
                 min="0"
                 name="cenaKarte"
                 placeholder="Cena karte"
-                onChange={(e) => setFestival({...festival, cenaKarte: e.target.value})}
+                onChange={(e) => setCenaKarte(e.target.value)}
               />
               <br />
             </Form.Group>
@@ -126,7 +134,7 @@ function Create(props) {
                 min="0"
                 name="brojDostupnihKarata"
                 placeholder="Broj dostupnih karata"
-                onChange={(e) => setFestival({...festival, brojDostupnihKarata: e.target.value})}
+                onChange={(e) => setBrojDostupnihKarata(e.target.value)}
               />
               <br />
             </Form.Group>
