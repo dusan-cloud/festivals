@@ -1,10 +1,13 @@
 package zavrsni.web.dto;
 
+import javax.validation.constraints.Positive;
+
 public class RezervacijaDTO {
 
+	@Positive(message = "Id mora biti pozitivan broj.")
+	private Long id;
 	
-private Long id;
-	
+	@Positive
 	private int brojKupljenihKarata;
 	
 	private double ukupnaCena;
