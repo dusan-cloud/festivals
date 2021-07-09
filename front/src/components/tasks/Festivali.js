@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
+import { Table, Button, ButtonGroup } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
 function Festivali(props) {
   const [festivals, setFestivals] = useState([]);
+  const [pageNo, setPageNo] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    getFestivals();
+    getFestivals(0);
   }, []);
 
-  function getFestivals() {
-    AppAxios.get("/festivali")
+  const getFestivals = (page) => {
+    let config = {
+      params: {
+        pageNo: page
+      }
+    }
+
+    AppAxios.get("/festivali", config)
       .then((res) => {
         console.log(res);
         setFestivals(res.data);
+        setPageNo(page);
+        setTotalPages(res.headers['total-pages']);
       })
       .catch((err) => {
         console.log(err);
@@ -22,22 +31,28 @@ function Festivali(props) {
   }
 
   function remove(id) {
-    console.log(id)
+    console.log(id);
 
-    AppAxios.delete('/festivali/' + id)
-      .then(res => {
-        console.log(res)
-        alert('Uspesno ste obrisali festival.')
-        window.location.reload()
+    AppAxios.delete("/festivali/" + id)
+      .then((res) => {
+        console.log(res);
+        alert("Uspesno ste obrisali festival.");
+        window.location.reload();
       })
-      .catch(err => {
-        console.log(err)
-        alert('Something wrong with delete..')
-      })
+      .catch((err) => {
+        console.log(err);
+        alert("Something wrong with delete..");
+      });
   }
 
   function goToCreate() {
-    props.history.push('/festivali/create')
+    props.history.push("/festivali/create");
+  }
+
+  const changePage = (direction) => {
+    const page = pageNo + direction;
+
+    getFestivals(page);
   }
 
   return (
@@ -45,6 +60,23 @@ function Festivali(props) {
       <Button variant="success" onClick={() => goToCreate()}>
         Kreiraj festival
       </Button>
+
+      <ButtonGroup style={{ float: "right" }}>
+        <Button
+          variant="info"
+          disabled={pageNo == 0}
+          onClick={() => changePage(-1)}
+        >
+          Prethodna
+        </Button>
+        <Button
+          variant="info"
+          disabled={totalPages == pageNo + 1}
+          onClick={() => changePage(1)}
+        >
+          Sledeca
+        </Button>
+      </ButtonGroup>
 
       <Table
         style={{ marginTop: 5 }}
@@ -77,7 +109,9 @@ function Festivali(props) {
               <td>{festival.cenaKarte}</td>
               <td>{festival.brojDostupnihKarata}</td>
               <td>
-                <Button variant="danger" onClick={() => remove(festival.id)}>Obrisi</Button>
+                <Button variant="danger" onClick={() => remove(festival.id)}>
+                  Obrisi
+                </Button>
               </td>
             </tr>
           ))}

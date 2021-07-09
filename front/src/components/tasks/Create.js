@@ -3,14 +3,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
 function Create(props) {
-//   const [festival, setFestival] = useState({
-//     naziv: "",
-//     datumPocetka: "",
-//     datumZavrsetka: "",
-//     cenaKarte: 0,
-//     brojDostupnihKarata: 0,
-//     mestoDTO: null,
-//   });
+    
 const[naziv, setNaziv] = useState('');
 const[datumPocetka, setDatumPocetka] = useState('');
 const[datumZavrsetka, setDatumZavrsetka] = useState('');
