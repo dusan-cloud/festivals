@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
-function Create(props) {
-    
+const Create = (props) => {
+
 const[naziv, setNaziv] = useState('');
 const[datumPocetka, setDatumPocetka] = useState('');
 const[datumZavrsetka, setDatumZavrsetka] = useState('');

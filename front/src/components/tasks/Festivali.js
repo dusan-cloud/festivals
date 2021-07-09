@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, ButtonGroup } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
-function Festivali(props) {
+const Festivali = (props) => {
   const [festivals, setFestivals] = useState([]);
   const [pageNo, setPageNo] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -30,7 +30,7 @@ function Festivali(props) {
       });
   }
 
-  function remove(id) {
+  const remove = (id) => {
     console.log(id);
 
     AppAxios.delete("/festivali/" + id)
@@ -45,7 +45,7 @@ function Festivali(props) {
       });
   }
 
-  function goToCreate() {
+  const goToCreate = () => {
     props.history.push("/festivali/create");
   }
 
