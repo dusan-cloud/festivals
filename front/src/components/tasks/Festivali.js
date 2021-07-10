@@ -1,34 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, ButtonGroup } from "react-bootstrap";
+import { Table, Button, ButtonGroup, Form } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
 const Festivali = (props) => {
   const [festivals, setFestivals] = useState([]);
   const [pageNo, setPageNo] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [naziv, setNaziv] = useState("");
+  const [mestoId, setMestoId] = useState(-1);
+  const [mesta, setMesta] = useState([]);
 
   useEffect(() => {
     getFestivals(0);
+    getMesta();
   }, []);
+
+  const getMesta = () => {
+    AppAxios.get("/mesta")
+      .then((res) => {
+        console.log(res);
+        setMesta(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getFestivals = (page) => {
     let config = {
       params: {
-        pageNo: page
-      }
-    }
+        pageNo: page,
+      },
+    };
 
     AppAxios.get("/festivali", config)
       .then((res) => {
         console.log(res);
         setFestivals(res.data);
         setPageNo(page);
-        setTotalPages(res.headers['total-pages']);
+        setTotalPages(res.headers["total-pages"]);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   const remove = (id) => {
     console.log(id);
@@ -43,20 +58,44 @@ const Festivali = (props) => {
         console.log(err);
         alert("Something wrong with delete..");
       });
-  }
+  };
 
   const goToCreate = () => {
     props.history.push("/festivali/create");
-  }
+  };
 
   const changePage = (direction) => {
     const page = pageNo + direction;
 
     getFestivals(page);
-  }
+  };
 
   return (
     <div>
+      <Form>
+        <Form.Group>
+          <Form.Label>Mesto odrzavanja</Form.Label>
+          <Form.Control
+            value={mestoId}
+            as="select"
+            name="mestoId"
+            onChange={(e) => set(e)}
+          >
+            <option placeholder="Mesto odrzavanja" value={-1}></option>
+            {}
+          </Form.Control>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Naziv festivala</Form.Label>
+          <Form.Control
+            value={this.state.search.naziv}
+            name="naziv"
+            placeholder="Naziv festivala"
+            onChange={(e) => setNaziv(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+      </Form>
+
       <Button variant="success" onClick={() => goToCreate()}>
         Kreiraj festival
       </Button>
@@ -119,6 +158,6 @@ const Festivali = (props) => {
       </Table>
     </div>
   );
-}
+};
 
 export default Festivali;
