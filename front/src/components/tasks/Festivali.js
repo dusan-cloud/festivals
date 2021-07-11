@@ -79,16 +79,22 @@ const Festivali = (props) => {
             value={mestoId}
             as="select"
             name="mestoId"
-            onChange={(e) => set(e)}
+            onChange={(e) => setMestoId(e.target.value)}
           >
             <option placeholder="Mesto odrzavanja" value={-1}></option>
-            {}
+            {mesta.map((mesto) => {
+              return (
+                <option key={mesto.id} value={mesto.id}>
+                  {mesto.grad},({mesto.drzava})
+                </option>
+              );
+            })}
           </Form.Control>
         </Form.Group>
         <Form.Group>
           <Form.Label>Naziv festivala</Form.Label>
           <Form.Control
-            value={this.state.search.naziv}
+            value={naziv}
             name="naziv"
             placeholder="Naziv festivala"
             onChange={(e) => setNaziv(e.target.value)}
