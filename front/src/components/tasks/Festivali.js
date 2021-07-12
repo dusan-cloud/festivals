@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, ButtonGroup, Form } from "react-bootstrap";
+import { Table, Button, ButtonGroup, Form, Collapse } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
 const Festivali = (props) => {
   const [festivals, setFestivals] = useState([]);
   const [pageNo, setPageNo] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [naziv, setNaziv] = useState("");
-  const [mestoId, setMestoId] = useState(-1);
   const [mesta, setMesta] = useState([]);
+  const [showSearchForm, setSearchForm] = useState(false);
+  const [naziv, setNaziv] = useState("");
+  const [mestoId, setMestoId] = useState("");
+ 
 
   useEffect(() => {
     getFestivals(0);
@@ -30,6 +32,8 @@ const Festivali = (props) => {
     let config = {
       params: {
         pageNo: page,
+        mestoId: mestoId,
+        naziv: naziv,
       },
     };
 
@@ -70,18 +74,42 @@ const Festivali = (props) => {
     getFestivals(page);
   };
 
+  const searchMesto = (e) => {
+    const value = e.target.value;
+    console.log(value);
+    setMestoId(value);
+
+    getFestivals(0);
+  };
+
+  const searchNaziv = (e) => {
+    const value = e.target.value;
+    console.log(value);
+    setNaziv(value);
+
+    getFestivals(0);
+  };
+
   return (
     <div>
+      <Form.Group>
+        <Form.Check
+          type="checkbox"
+          label="Show search form"
+          onClick={(event) => setSearchForm(event.target.checked)}
+        />
+      </Form.Group>
+      <Collapse in={showSearchForm}>
       <Form>
         <Form.Group>
           <Form.Label>Mesto odrzavanja</Form.Label>
           <Form.Control
-            value={mestoId}
+            id="mestoId"
             as="select"
             name="mestoId"
-            onChange={(e) => setMestoId(e.target.value)}
+            onChange={(e) => searchMesto(e)}
           >
-            <option placeholder="Mesto odrzavanja" value={-1}></option>
+            <option value={-1}>Mesto odrzavanja</option>
             {mesta.map((mesto) => {
               return (
                 <option key={mesto.id} value={mesto.id}>
@@ -94,13 +122,14 @@ const Festivali = (props) => {
         <Form.Group>
           <Form.Label>Naziv festivala</Form.Label>
           <Form.Control
-            value={naziv}
+            id="naziv"
             name="naziv"
             placeholder="Naziv festivala"
-            onChange={(e) => setNaziv(e.target.value)}
+            onChange={(e) => searchNaziv(e)}
           ></Form.Control>
         </Form.Group>
       </Form>
+      </Collapse>
 
       <Button variant="success" onClick={() => goToCreate()}>
         Kreiraj festival
