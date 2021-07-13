@@ -14,7 +14,7 @@ const Festivali = (props) => {
   useEffect(() => {
     getFestivals(0);
     getMesta();
-  }, []);
+  }, [naziv, mestoId]);
 
   const getMesta = () => {
     AppAxios.get("/mesta")
