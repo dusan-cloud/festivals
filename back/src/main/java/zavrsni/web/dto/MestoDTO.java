@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class MestoDTO {
 
-	@Positive(message = "Id mora biti pozitivan broj.")
+	
 	private Long id;
 
 	private String grad;

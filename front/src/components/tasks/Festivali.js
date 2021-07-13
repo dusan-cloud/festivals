@@ -9,8 +9,7 @@ const Festivali = (props) => {
   const [mesta, setMesta] = useState([]);
   const [showSearchForm, setSearchForm] = useState(false);
   const [naziv, setNaziv] = useState("");
-  const [mestoId, setMestoId] = useState("");
- 
+  const [mestoId, setMestoId] = useState(-1);
 
   useEffect(() => {
     getFestivals(0);
@@ -32,10 +31,15 @@ const Festivali = (props) => {
     let config = {
       params: {
         pageNo: page,
-        mestoId: mestoId,
-        naziv: naziv,
       },
     };
+
+    if (mestoId != -1) {
+      config.params["mestoId"] = mestoId;
+    }
+    if (naziv != "") {
+      config.params["naziv"] = naziv;
+    }
 
     AppAxios.get("/festivali", config)
       .then((res) => {
@@ -100,35 +104,36 @@ const Festivali = (props) => {
         />
       </Form.Group>
       <Collapse in={showSearchForm}>
-      <Form>
-        <Form.Group>
-          <Form.Label>Mesto odrzavanja</Form.Label>
-          <Form.Control
-            id="mestoId"
-            as="select"
-            name="mestoId"
-            onChange={(e) => searchMesto(e)}
-          >
-            <option value={-1}>Mesto odrzavanja</option>
-            {mesta.map((mesto) => {
-              return (
-                <option key={mesto.id} value={mesto.id}>
-                  {mesto.grad},({mesto.drzava})
-                </option>
-              );
-            })}
-          </Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Naziv festivala</Form.Label>
-          <Form.Control
-            id="naziv"
-            name="naziv"
-            placeholder="Naziv festivala"
-            onChange={(e) => searchNaziv(e)}
-          ></Form.Control>
-        </Form.Group>
-      </Form>
+        <Form>
+          <Form.Group>
+            <Form.Label>Mesto odrzavanja</Form.Label>
+            <Form.Control
+              id="mestoId"
+              as="select"
+              name="mestoId"
+              value={mestoId}
+              onChange={searchMesto}
+            >
+              <option value={-1}>Mesto odrzavanja</option>
+              {mesta.map((mesto) => {
+                return (
+                  <option key={mesto.id} value={mesto.id}>
+                    {mesto.grad},({mesto.drzava})
+                  </option>
+                );
+              })}
+            </Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Naziv festivala</Form.Label>
+            <Form.Control
+              id="naziv"
+              name="naziv"
+              placeholder="Naziv festivala"
+              onChange={searchNaziv}
+            ></Form.Control>
+          </Form.Group>
+        </Form>
       </Collapse>
 
       <Button variant="success" onClick={() => goToCreate()}>
