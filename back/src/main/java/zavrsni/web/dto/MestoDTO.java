@@ -1,6 +1,5 @@
 package zavrsni.web.dto;
 
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 public class MestoDTO {

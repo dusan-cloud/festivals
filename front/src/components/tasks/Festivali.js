@@ -14,10 +14,11 @@ const Festivali = (props) => {
   useEffect(() => {
     getFestivals(0);
     getMesta();
-  }, [naziv, mestoId]);
+  }, [mestoId, naziv]);
 
   const getMesta = () => {
-    AppAxios.get("/mesta")
+  
+      AppAxios.get("/mesta")
       .then((res) => {
         console.log(res);
         setMesta(res.data);
@@ -27,7 +28,7 @@ const Festivali = (props) => {
       });
   };
 
-  const getFestivals = (page) => {
+  const getFestivals = async (page) => {
     let config = {
       params: {
         pageNo: page,
@@ -41,16 +42,26 @@ const Festivali = (props) => {
       config.params["naziv"] = naziv;
     }
 
-    AppAxios.get("/festivali", config)
-      .then((res) => {
+    try{
+      const res = await AppAxios.get("/festivali", config);
         console.log(res);
         setFestivals(res.data);
         setPageNo(page);
         setTotalPages(res.headers["total-pages"]);
-      })
-      .catch((err) => {
+    } catch(err) {
         console.log(err);
-      });
+    }
+
+    // AppAxios.get("/festivali", config)
+    //   .then((res) => {
+    //     console.log(res);
+    //     setFestivals(res.data);
+    //     setPageNo(page);
+    //     setTotalPages(res.headers["total-pages"]);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const remove = (id) => {
@@ -111,7 +122,6 @@ const Festivali = (props) => {
               id="mestoId"
               as="select"
               name="mestoId"
-              value={mestoId}
               onChange={searchMesto}
             >
               <option value={-1}>Mesto odrzavanja</option>
