@@ -12,6 +12,7 @@ import { logout } from "./service/auth";
 import Login from "./components/authorization/Login";
 import Festivali from "./components/tasks/Festivali";
 import Create from "./components/tasks/Create";
+import Reserve from "./components/tasks/Reserve";
 
 function App () {
 
@@ -42,6 +43,7 @@ function App () {
                 />
                 <Route exact path="/festivali" component={Festivali}/>
                 <Route exact path="/festivali/create" component={Create}/>
+                <Route exact path="/festivali/reserve/:id" component={Reserve}/>
                 <Route component={NotFound} />
               </Switch>
             </Container>

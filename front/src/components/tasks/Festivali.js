@@ -52,16 +52,6 @@ const Festivali = (props) => {
         console.log(err);
     }
 
-    // AppAxios.get("/festivali", config)
-    //   .then((res) => {
-    //     console.log(res);
-    //     setFestivals(res.data);
-    //     setPageNo(page);
-    //     setTotalPages(res.headers["total-pages"]);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   const remove = (id) => {
@@ -79,9 +69,6 @@ const Festivali = (props) => {
       });
   };
 
-  const goToCreate = () => {
-    props.history.push("/festivali/create");
-  };
 
   const changePage = (direction) => {
     const page = pageNo + direction;
@@ -104,6 +91,15 @@ const Festivali = (props) => {
 
     getFestivals(0);
   };
+
+
+  const goToCreate = () => {
+    props.history.push("/festivali/create");
+  };
+
+  const goToReserve = (id) => {
+    props.history.push("/festivali/reserve/" + id)
+  }
 
   return (
     <div>
@@ -184,6 +180,7 @@ const Festivali = (props) => {
             <th>Cena karte (RSD)</th>
             <th>Broj preostalih karata</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -197,6 +194,9 @@ const Festivali = (props) => {
               <td>{festival.datumZavrsetka}</td>
               <td>{festival.cenaKarte}</td>
               <td>{festival.brojDostupnihKarata}</td>
+              <td>
+                <Button onClick={() => goToReserve(festival.id)}>Rezervisi</Button>
+              </td>
               <td>
                 <Button variant="danger" onClick={() => remove(festival.id)}>
                   Obrisi
