@@ -8,7 +8,7 @@ const Reserve = (props) => {
 
   useEffect(() => {
     getFestivalById(props.match.params.id);
-  }, []);
+  }, [props.match.params.id]);
 
   const getFestivalById = async (id) => {
     try {
@@ -20,9 +20,21 @@ const Reserve = (props) => {
     }
   };
 
-  function rezervisi () {
-
-  }
+  const rezervisi = async () => {
+    let rezervacijaDTO = {
+      festivalDTO: festival,
+      brojKarata: brojKarata,
+    };
+    try {
+      const res = await AppAxios.post("/rezervacije", rezervacijaDTO);
+      console.log(res);
+      alert("Uspesno ste rezervisali kartu.");
+      props.history.push("/festivali");
+    } catch (err) {
+      console.log(err);
+      alert("Nema dovoljan broj karata.");
+    }
+  };
 
   return (
     <div>
