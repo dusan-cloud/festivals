@@ -23,8 +23,9 @@ const Reserve = (props) => {
   const rezervisi = async () => {
     let rezervacijaDTO = {
       festivalDTO: festival,
-      brojKarata: brojKarata,
+      brojKupljenihKarata: brojKarata,
     };
+
     try {
       const res = await AppAxios.post("/rezervacije", rezervacijaDTO);
       console.log(res);

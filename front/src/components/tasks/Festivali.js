@@ -195,7 +195,7 @@ const Festivali = (props) => {
               <td>{festival.cenaKarte}</td>
               <td>{festival.brojDostupnihKarata}</td>
               <td>
-                <Button onClick={() => goToReserve(festival.id)}>Rezervisi</Button>
+                <Button disabled={festival.brojDostupnihKarata == 0} onClick={() => goToReserve(festival.id)}>Rezervisi</Button>
               </td>
               <td>
                 <Button variant="danger" onClick={() => remove(festival.id)}>
