@@ -67,12 +67,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
-//				.antMatchers(HttpMethod.POST, "/api/korisnici/auth")
-//					.permitAll()
-//				.antMatchers(HttpMethod.GET, "/api/filmovi")
-//					 .permitAll()
-//				.anyRequest().authenticated();
-				.anyRequest().permitAll();
+				.antMatchers(HttpMethod.POST, "/api/korisnici/auth")
+					.permitAll()
+				.antMatchers(HttpMethod.GET, "/api/filmovi")
+					 .permitAll()
+				.anyRequest().authenticated();
+//				.anyRequest().permitAll();
 
 		// Custom JWT based authentication
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(),

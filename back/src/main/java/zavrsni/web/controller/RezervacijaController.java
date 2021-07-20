@@ -36,7 +36,7 @@ public class RezervacijaController {
 	
 	
 	
-//	@PreAuthorize("hasRole('KORISNIK')")
+	@PreAuthorize("hasRole('KORISNIK')")
 	@GetMapping
 	public ResponseEntity<List<RezervacijaDTO>> getAll() {
 		
@@ -46,7 +46,7 @@ public class RezervacijaController {
 	}
 	
 	
-//	@PreAuthorize("hasRole('KORISNIK')")
+	@PreAuthorize("hasRole('KORISNIK')")
 	 @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<RezervacijaDTO> create(@Valid @RequestBody RezervacijaDTO rezervacijaDTO){
 		 Rezervacija rezervacija = toRezervacija.convert(rezervacijaDTO);
