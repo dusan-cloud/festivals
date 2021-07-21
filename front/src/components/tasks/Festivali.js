@@ -144,7 +144,7 @@ const Festivali = (props) => {
       {window.localStorage['role'] == 'ROLE_ADMIN'? (
       <Button variant="success" onClick={() => goToCreate()}>
         Kreiraj festival
-      </Button>) : null }
+      </Button>) : null}
 
       <ButtonGroup style={{ float: "right" }}>
         <Button

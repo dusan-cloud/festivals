@@ -15,3 +15,5 @@ INSERT INTO festival(id, naziv, datum_pocetka, datum_zavrsetka, cena_karte, broj
 INSERT INTO festival(id, naziv, datum_pocetka, datum_zavrsetka, cena_karte, broj_dostupnih_karata, mesto_id) VALUES(2, 'EXIT', '2021-07-15', '2021-07-20', 12000, 200, 1);
 INSERT INTO festival(id, naziv, datum_pocetka, datum_zavrsetka, cena_karte, broj_dostupnih_karata, mesto_id) VALUES(3, 'Sidget', '2021-08-18', '2021-08-22', 7000, 15, 2);
 INSERT INTO festival(id, naziv, datum_pocetka, datum_zavrsetka, cena_karte, broj_dostupnih_karata, mesto_id) VALUES(4, 'Beer fest', '2021-09-28', '2021-10-02', 7000, 150, 3);
+INSERT INTO festival(id, naziv, datum_pocetka, datum_zavrsetka, cena_karte, broj_dostupnih_karata, mesto_id) VALUES(5, 'Love fest', '2021-09-22', '2021-10-27', 500, 200, 3);
+INSERT INTO festival(id, naziv, datum_pocetka, datum_zavrsetka, cena_karte, broj_dostupnih_karata, mesto_id) VALUES(6, 'Ok Fest', '2021-11-28', '2021-12-02', 1000, 54, 1);
