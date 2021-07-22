@@ -17,8 +17,7 @@ const Festivali = (props) => {
   }, [mestoId, naziv]);
 
   const getMesta = () => {
-  
-      AppAxios.get("/mesta")
+    AppAxios.get("/mesta")
       .then((res) => {
         console.log(res);
         setMesta(res.data);
@@ -42,16 +41,15 @@ const Festivali = (props) => {
       config.params["naziv"] = naziv;
     }
 
-    try{
+    try {
       const res = await AppAxios.get("/festivali", config);
-        console.log(res);
-        setFestivals(res.data);
-        setPageNo(page);
-        setTotalPages(res.headers["total-pages"]);
-    } catch(err) {
-        console.log(err);
+      console.log(res);
+      setFestivals(res.data);
+      setPageNo(page);
+      setTotalPages(res.headers["total-pages"]);
+    } catch (err) {
+      console.log(err);
     }
-
   };
 
   const remove = (id) => {
@@ -68,7 +66,6 @@ const Festivali = (props) => {
         alert("Something wrong with delete..");
       });
   };
-
 
   const changePage = (direction) => {
     const page = pageNo + direction;
@@ -92,14 +89,13 @@ const Festivali = (props) => {
     getFestivals(0);
   };
 
-
   const goToCreate = () => {
     props.history.push("/festivali/create");
   };
 
   const goToReserve = (id) => {
-    props.history.push("/festivali/reserve/" + id)
-  }
+    props.history.push("/festivali/reserve/" + id);
+  };
 
   return (
     <div>
@@ -141,10 +137,11 @@ const Festivali = (props) => {
           </Form.Group>
         </Form>
       </Collapse>
-      {window.localStorage['role'] == 'ROLE_ADMIN'? (
-      <Button variant="success" onClick={() => goToCreate()}>
-        Kreiraj festival
-      </Button>) : null}
+      {window.localStorage["role"] == "ROLE_ADMIN" ? (
+        <Button variant="success" onClick={() => goToCreate()}>
+          Kreiraj festival
+        </Button>
+      ) : null}
 
       <ButtonGroup style={{ float: "right" }}>
         <Button
@@ -179,8 +176,8 @@ const Festivali = (props) => {
             <th>Datum zavrsetka festivala</th>
             <th>Cena karte (RSD)</th>
             <th>Broj preostalih karata</th>
-            {window.localStorage['role'] == 'ROLE_KORISNIK'? (<th></th>) : null}
-            {window.localStorage['role'] == 'ROLE_ADMIN'? (<th></th>) : null}
+            {window.localStorage["role"] == "ROLE_KORISNIK" ? <th></th> : null}
+            {window.localStorage["role"] == "ROLE_ADMIN" ? <th></th> : null}
           </tr>
         </thead>
         <tbody>
@@ -194,16 +191,23 @@ const Festivali = (props) => {
               <td>{festival.datumZavrsetka}</td>
               <td>{festival.cenaKarte}</td>
               <td>{festival.brojDostupnihKarata}</td>
-              {window.localStorage['role'] == 'ROLE_KORISNIK'? (
-              <td>
-                <Button disabled={festival.brojDostupnihKarata == 0} onClick={() => goToReserve(festival.id)}>Rezervisi</Button>
-              </td>) : null}
-              {window.localStorage['role'] == 'ROLE_ADMIN'? (
-              <td>
-                <Button variant="danger" onClick={() => remove(festival.id)}>
-                  Obrisi
-                </Button>
-              </td>) : null}
+              {window.localStorage["role"] == "ROLE_KORISNIK" ? (
+                <td>
+                  <Button
+                    disabled={festival.brojDostupnihKarata == 0}
+                    onClick={() => goToReserve(festival.id)}
+                  >
+                    Rezervisi
+                  </Button>
+                </td>
+              ) : null}
+              {window.localStorage["role"] == "ROLE_ADMIN" ? (
+                <td>
+                  <Button variant="danger" onClick={() => remove(festival.id)}>
+                    Obrisi
+                  </Button>
+                </td>
+              ) : null}
             </tr>
           ))}
         </tbody>
