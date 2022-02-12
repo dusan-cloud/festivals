@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState }  from "react";
 import { Table, Button, ButtonGroup, Form, Collapse } from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
@@ -12,9 +12,9 @@ const Festivali = (props) => {
   const [mestoId, setMestoId] = useState(-1);
 
   useEffect(() => {
-    getFestivals(0);
+    getFestivals(0) ;
     getMesta();
-  }, [mestoId, naziv]);
+  }, [mestoId, naziv]) ;
 
   const getMesta = () => {
     AppAxios.get("/mesta")
